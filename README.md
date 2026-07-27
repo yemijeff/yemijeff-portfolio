@@ -1,37 +1,57 @@
 # Yemi Jeff Senbanjo — Portfolio
 
-A 20-page editorial portfolio site for Yemi Jeff Senbanjo, Product Designer.
+A 20-page editorial portfolio site for Yemi Jeff Senbanjo, Product Designer based in Lagos, Nigeria.
 
 Design references: Stripe Press, Linear, Medium, Apple editorial.
 
+## Repository & Deployment
+
+- **GitHub Repository**: `https://github.com/yemijeff/yemijeff-portfolio`
+- **Main Branch**: `main`
+
 ## Structure
 
-- `index.html` — homepage
-- `work.html` — case study index
-- `case-*.html` — four full case studies (Tryblie, Bankeasy, Payvice, Receipt App)
-- `library.html` — filterable archive
-- `library-*.html` — six library entries
-- `about.html` — about page with career timeline
-- `resume.html` — résumé, built from the real CV
-- `notebook-*.html` — five essays
-- `style.css` — shared stylesheet (each HTML page also carries its own inlined copy of this CSS so every page works fully standalone, with or without a server)
+- `index.html` — Homepage (hero, selected work, timeline, notebook preview)
+- `work.html` — Case study index (editorial list)
+- `case-*.html` — Case studies (Tryblie, Bankeasy with 14 real UI screenshots, Payvice, Receipt App)
+- `library.html` — Filterable archive with client-side search & tag filters
+- `library-*.html` — Six library entries
+- `about.html` — About page with career timeline
+- `resume.html` — Résumé, built directly from real CV
+- `notebook-*.html` — Five essays
+- `style.css` — Canonical shared stylesheet linked across all HTML pages
+- `sync-css.js` — Utility script to link or inline `style.css` across all HTML pages
 
-## Design system
+## Design System
 
-- Background `#FAFAF8` · Text `#111111` · Secondary `#6B7280` · Border `#E7E5E4`
-- Headings: Newsreader (serif) · Body: Inter
-- 12-column grid, 80px margins, 760px max content width
+- **Palette**: Background `#FAFAF8` · Text `#111111` · Secondary `#6B7280` · Border `#E7E5E4` · Surface `#FFFFFF`
+- **Typography**: Headings: Newsreader (serif) · Body: Inter
+- **Layout**: 12-column grid, 80px desktop margins (48px tablet, 24px mobile), 760px max content width for prose
+- **Motion**: Restrained scroll reveals via `IntersectionObserver`, reading-progress bar, graceful hover states, `prefers-reduced-motion` compliance
 
-## Running locally
+## Running & Maintenance
 
-No build step — every page is plain HTML/CSS/JS. Open any `.html` file directly in a browser, or serve the folder with any static file server:
+No framework or server required — plain HTML/CSS/vanilla JS throughout. Open any `.html` file directly in a browser, or run a local static server:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-## Known placeholders
+### Stylesheet Sync Tool
 
-- LinkedIn URL, Behance, and Dribbble links are placeholders — update with real profile URLs.
-- Contact email in the site chrome (`hello@yemijeff.com`) differs from the real CV email (`yemijefff@gmail.com`) — reconcile before going live.
-- The four main case studies (Tryblie, Bankeasy, Payvice, Receipt App) use illustrative project narratives written before the real CV was available — consider rewriting with real project context.
+To maintain `style.css` as the single canonical source:
+- Edit `style.css` directly for any visual or layout changes.
+- If standalone single-file HTML outputs are ever required (e.g. for offline previews without relative path support), run:
+  ```bash
+  node sync-css.js --inline
+  ```
+- To switch back to external stylesheet linking:
+  ```bash
+  node sync-css.js
+  ```
+
+## Contact & Links
+
+- **Email**: `yemijefff@gmail.com`
+- **Phone**: +234 816 404 0068
+- **LinkedIn**: `https://linkedin.com/in/yemijeffsenbanjo`
