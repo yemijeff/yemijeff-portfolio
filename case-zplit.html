@@ -36,17 +36,21 @@
         <div class="phone-mockup-wrapper">
           <div class="phone-notch"></div>
           <div class="phone-screen-viewport">
-            <img src="images/zplit/screens/screen-1.jpg" alt="Group Plans Overview" class="phone-screen-slide active" id="slide-0">
-            <img src="images/zplit/screens/screen-2.jpg" alt="Create Plan &amp; Deadlines" class="phone-screen-slide" id="slide-1">
-            <img src="images/zplit/screens/screen-3.jpg" alt="Live Contribution Tracker" class="phone-screen-slide" id="slide-2">
-            <img src="images/zplit/screens/screen-4.jpg" alt="In-Group Communication" class="phone-screen-slide" id="slide-3">
+            <img src="images/zplit/screens/screen-home.jpg" alt="Zplit Home Dashboard" class="phone-screen-slide active" id="slide-0">
+            <img src="images/zplit/screens/screen-create-group.jpg" alt="Create Group &amp; Invite Members" class="phone-screen-slide" id="slide-1">
+            <img src="images/zplit/screens/screen-create-split.jpg" alt="Create Split &amp; Deadlines" class="phone-screen-slide" id="slide-2">
+            <img src="images/zplit/screens/screen-dashboard.jpg" alt="Live Group Dashboard" class="phone-screen-slide" id="slide-3">
+            <img src="images/zplit/screens/screen-add-money.jpg" alt="Add Money &amp; Settle Contribution" class="phone-screen-slide" id="slide-4">
+            <img src="images/zplit/screens/screen-history.jpg" alt="Activity History &amp; Reminders" class="phone-screen-slide" id="slide-5">
           </div>
         </div>
         <div class="phone-indicators">
-          <button class="phone-indicator-btn active" onclick="setSlide(0)">01 Group Plans</button>
-          <button class="phone-indicator-btn" onclick="setSlide(1)">02 Set Deadlines</button>
-          <button class="phone-indicator-btn" onclick="setSlide(2)">03 Contributions</button>
-          <button class="phone-indicator-btn" onclick="setSlide(3)">04 Activity Feed</button>
+          <button class="phone-indicator-btn active" onclick="setSlide(0)">01 Home</button>
+          <button class="phone-indicator-btn" onclick="setSlide(1)">02 Invite Members</button>
+          <button class="phone-indicator-btn" onclick="setSlide(2)">03 Set Split</button>
+          <button class="phone-indicator-btn" onclick="setSlide(3)">04 Group Hub</button>
+          <button class="phone-indicator-btn" onclick="setSlide(4)">05 Pay Share</button>
+          <button class="phone-indicator-btn" onclick="setSlide(5)">06 Activity</button>
         </div>
       </div>
     </div>
@@ -84,20 +88,60 @@
           <cite>— Zplit Product Principle</cite>
         </div>
 
-        <h2>High Fidelity Mobile Designs</h2>
-        <p>The interface uses clear visual typography, vibrant accent cues, and modular cards to make complex multi-user contributions feel straightforward at a glance.</p>
+        <h2>Onboarding &amp; Authentication</h2>
+        <p>The onboarding flow introduces the core value proposition — setting shared goals and inviting friends in seconds with zero friction.</p>
 
-        <div class="case-shot-container wide reveal">
-          <img src="images/zplit/zplit-screens-overview.jpg" alt="Zplit Mobile Interface Overview" class="case-shot-img">
-          <p class="image-caption">Core Mobile Interfaces — Group Creation, Contribution Dashboard &amp; Settlement Screens</p>
+        <div class="case-shot-grid reveal">
+          <div>
+            <img src="images/zplit/screen-onboarding.jpg" alt="Zplit Onboarding Screen" class="case-shot-img">
+            <p class="image-caption">Onboarding — Welcome &amp; Group Payment Promise</p>
+          </div>
+          <div>
+            <img src="images/zplit/screen-login.jpg" alt="Zplit Login Screen" class="case-shot-img">
+            <p class="image-caption">Authentication — Phone &amp; Social Sign-In</p>
+          </div>
         </div>
 
-        <h2>User Flows &amp; Payment Architecture</h2>
-        <p>The contribution flow is designed for zero friction: participants receive an invite link, view plain-language breakdown of their share, and complete payment in two taps with instant status updates delivered to the organizer.</p>
+        <h2>Group Creation &amp; Participant Allocations</h2>
+        <p>Organizers can quickly define plan details, add friends from their contact list, and set exact payment amounts and hard deadlines.</p>
 
-        <div class="case-shot-container wide reveal">
-          <img src="images/zplit/zplit-user-flow-diagram.jpg" alt="Zplit User Flow Diagram" class="case-shot-img">
-          <p class="image-caption">User Flow Architecture — Invite Link, Plan Setup &amp; Live Real-Time Contribution Tracking</p>
+        <div class="case-shot-grid reveal">
+          <div>
+            <img src="images/zplit/screens/screen-create-group.jpg" alt="Add Members &amp; Search" class="case-shot-img">
+            <p class="image-caption">Member Selection &amp; Shareable Link Invites</p>
+          </div>
+          <div>
+            <img src="images/zplit/screens/screen-create-split.jpg" alt="Set Split Amounts &amp; Deadlines" class="case-shot-img">
+            <p class="image-caption">Split Creation — Amounts &amp; Payment Deadlines</p>
+          </div>
+        </div>
+
+        <h2>Live Contributions Hub &amp; Payment Settlement</h2>
+        <p>Participants view their individual share in plain terms and settle contributions in two taps using their preferred payment method.</p>
+
+        <div class="case-shot-grid reveal">
+          <div>
+            <img src="images/zplit/screens/screen-dashboard.jpg" alt="Live Group Hub" class="case-shot-img">
+            <p class="image-caption">Group Hub — Real-Time Funds Collected &amp; Remaining Balances</p>
+          </div>
+          <div>
+            <img src="images/zplit/screens/screen-add-money.jpg" alt="Add Money &amp; Pay Share" class="case-shot-img">
+            <p class="image-caption">Contribution Settlement — Instant Payment Processing</p>
+          </div>
+        </div>
+
+        <h2>Activity History, Receipts &amp; Reminders</h2>
+        <p>Transparent transaction receipts and automated reminder notifications keep all members aligned without awkward personal follow-ups.</p>
+
+        <div class="case-shot-grid reveal">
+          <div>
+            <img src="images/zplit/screen-transaction-details.jpg" alt="Transaction Breakdown" class="case-shot-img">
+            <p class="image-caption">Transaction Details &amp; Payment Receipts</p>
+          </div>
+          <div>
+            <img src="images/zplit/screen-notifications.jpg" alt="Automated Reminders" class="case-shot-img">
+            <p class="image-caption">Automated Notifications &amp; Friendly Reminders</p>
+          </div>
         </div>
 
         <h2>Design System &amp; Component Board</h2>
