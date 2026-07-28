@@ -13,7 +13,7 @@ Design references: Stripe Press, Linear, Medium, Apple editorial.
 
 - `index.html` — Homepage (hero, selected work, timeline, notebook preview)
 - `work.html` — Case study index (editorial list)
-- `case-*.html` — Case studies (Tryblie, Bankeasy with 14 real UI screenshots, Payvice, Receipt App)
+- `case-*.html` — Four case studies (Tryblie, Bankeasy with 14 real UI screenshots, Payvice, Zplit — Group Plans & Payments)
 - `library.html` — Filterable archive with client-side search & tag filters
 - `library-*.html` — Six library entries
 - `about.html` — About page with career timeline
