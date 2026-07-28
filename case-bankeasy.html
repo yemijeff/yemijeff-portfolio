@@ -31,7 +31,10 @@
       <p class="breadcrumb reveal"><a href="work.html">Work</a> / Bankeasy</p>
       <p class="eyebrow reveal">Case Study 02</p>
       <h1 class="reveal" style="font-size:56px; max-width:820px;">Bankeasy: banking that explains itself</h1>
-      <div class="case-hero-image reveal" style="background:#1E3A5F;">Bankeasy — mobile banking</div>
+      <div class="case-shot-container wide reveal" style="margin-top:40px;">
+        <img src="images/bankeasy/dashboard-overview.png" alt="Bankeasy Dashboard Overview" class="case-shot-img">
+        <p class="image-caption">Main Bankeasy mobile banking dashboard overview &amp; balances</p>
+      </div>
     </div>
   </section>
 
@@ -39,22 +42,22 @@
     <div class="wrap">
       <div class="case-meta-row reveal">
         <div class="case-meta-item"><p class="section-label">Industry</p><div class="val">FinTech</div></div>
-        <div class="case-meta-item"><p class="section-label">Platform</p><div class="val">Mobile</div></div>
+        <div class="case-meta-item"><p class="section-label">Platform</p><div class="val">Mobile / Web</div></div>
         <div class="case-meta-item"><p class="section-label">Role</p><div class="val">Product Design, UX Research</div></div>
-        <div class="case-meta-item"><p class="section-label">Timeline</p><div class="val">2023</div></div>
+        <div class="case-meta-item"><p class="section-label">Timeline</p><div class="val">2023–Present</div></div>
       </div>
 
       <article class="case-body">
 
         <h2 style="margin-top:0;">Overview</h2>
-        <p class="lede">Bankeasy set out to make everyday banking legible to people who had never trusted a bank statement to explain itself. I led product design for the mobile app, from early research through to launch.</p>
+        <p class="lede">Bankeasy set out to make everyday banking legible to people who had never trusted a bank statement to explain itself. I led product design for the app, from early research through to launch.</p>
         <p>The team's founding insight was simple: most digital banking apps are digitized versions of paper statements, built for auditors, not for the person deciding whether they can afford dinner out tonight.</p>
 
         <h2>The Challenge</h2>
         <p>Bankeasy needed to launch a full consumer banking app — accounts, transfers, savings, spending insights — in a market where trust was the scarcest resource, and where competitors had spent years training users to expect confusing fee structures and jargon-heavy statements.</p>
 
         <h2>Context</h2>
-        <p>I joined during the pre-seed research phase, before a single screen had been designed, working alongside two engineers and a founder who had previously built compliance software — someone who deeply understood banking rules, but needed a partner who understood the person on the other end of the screen.</p>
+        <p>I joined during the pre-seed research phase, working alongside two engineers and a founder who had previously built compliance software — someone who deeply understood banking rules, but needed a partner who understood the person on the other end of the screen.</p>
 
         <h2>Understanding the Users</h2>
         <p>We interviewed 26 people who had recently switched banks or opened a first account, focusing on the moments they felt confused or anxious. The clearest pattern: people didn't distrust banks because of what banks did, but because of how illegibly banks explained what they did.</p>
@@ -69,32 +72,33 @@
           <cite>— Research participant, age 27</cite>
         </div>
 
-        <h2>Research</h2>
-        <p>We audited five competitor apps line by line, cataloguing every place language shifted into legal or technical register. On average, a competitor screen switched into unexplained jargon once every 40 words.</p>
+        <h2>Authentication &amp; Onboarding</h2>
+        <p>The onboarding experience prioritizes clarity at every step, using friction-reduced phone verification and transparent permission requests.</p>
 
-        <div class="callout-block reveal">
-          <div class="label">Research Finding</div>
-          Participants were more forgiving of a fee itself than of being surprised by it — the emotional cost of surprise consistently outweighed the financial cost of the fee.
+        <div class="case-shot-grid reveal">
+          <div>
+            <img src="images/bankeasy/auth-sign-in.png" alt="Bankeasy Sign In Screen" class="case-shot-img">
+            <p class="image-caption">Sign In &amp; Biometric Authentication</p>
+          </div>
+          <div>
+            <img src="images/bankeasy/auth-verify-phone.png" alt="Bankeasy Phone Verification" class="case-shot-img">
+            <p class="image-caption">Phone Verification &amp; Security Setup</p>
+          </div>
         </div>
 
-        <h2>Problem Definition</h2>
-        <p>The problem wasn't a features gap. It was a comprehension gap between what the bank knew and what the user understood, at exactly the moments that mattered most: before a transfer, before a fee, before an overdraft.</p>
-
-        <h2>Opportunity Statement</h2>
-        <p class="lede">How might we make Bankeasy the first bank that explains what's about to happen before it happens, in language a person would actually use?</p>
-
-        <h2>Exploration</h2>
-        <p>We explored an AI chat-based assistant, a heavily annotated transaction feed, and a "before you continue" pattern — plain-language confirmation moments injected right before financially consequential actions. Testing showed the chat assistant added a step people didn't want; the confirmation pattern integrated into flows people were already using, so it won.</p>
-
-        <h2>User Flows</h2>
+        <h2>User Flows &amp; Explanations</h2>
         <p>The transfer flow became the flagship example: before confirming any transfer, Bankeasy shows the resulting available balance in plain terms, with a one-line explanation if the transfer would trigger a fee or bring the balance close to zero.</p>
 
-        <div class="image-block reveal" style="background:#274d75;">User flow — transfer with plain-language confirmation</div>
-
-        <h2>Wireframes</h2>
-        <p>Early wireframes tested three levels of explanatory detail. The middle option — one clear sentence, expandable for more — outperformed both the terse and the verbose versions in comprehension testing.</p>
-
-        <div class="image-block reveal" style="background:#16283f;">Low-fidelity wireframes — confirmation screen exploration</div>
+        <div class="case-shot-grid reveal">
+          <div>
+            <img src="images/bankeasy/dashboard-account.png" alt="Bankeasy Account Details" class="case-shot-img">
+            <p class="image-caption">Account Overview — Available vs Actual Balance</p>
+          </div>
+          <div>
+            <img src="images/bankeasy/dashboard-payment.png" alt="Bankeasy Transfer Flow" class="case-shot-img">
+            <p class="image-caption">Transfer Confirmation with Fee Disclosures</p>
+          </div>
+        </div>
 
         <h2>Design Decisions</h2>
         <ul>
@@ -106,8 +110,24 @@
         <h2>High Fidelity Designs</h2>
         <p>The visual language stayed deliberately calm — a restrained palette, generous type, and color used only to carry meaning (a fee warning, a completed transfer) rather than for decoration.</p>
 
-        <div class="image-block wide reveal" style="background:#1E3A5F; height:460px;">High-fidelity UI — accounts, transfers &amp; spending insight screens</div>
-        <p class="image-caption">Core account, transfer, and insight screens from the shipped v1 release.</p>
+        <div class="case-shot-container wide reveal">
+          <img src="images/bankeasy/payment-transactions.png" alt="Bankeasy Transactions Feed" class="case-shot-img">
+          <p class="image-caption">Full Transaction History Feed &amp; Categorized Activity</p>
+        </div>
+
+        <h2>Developer Portal &amp; API Management</h2>
+        <p>For corporate accounts and partners, we designed a companion developer portal with API status monitoring, test key management, and real-time webhook event logs.</p>
+
+        <div class="case-shot-grid reveal">
+          <div>
+            <img src="images/bankeasy/dev-api-keys.png" alt="Bankeasy API Key Management" class="case-shot-img">
+            <p class="image-caption">Developer Portal — API Keys &amp; Testing Controls</p>
+          </div>
+          <div>
+            <img src="images/bankeasy/dev-event-logs.png" alt="Bankeasy Webhook Event Logs" class="case-shot-img">
+            <p class="image-caption">Developer Portal — Real-Time Event Logs</p>
+          </div>
+        </div>
 
         <h2>Testing</h2>
         <p>Usability testing with 18 participants showed a marked increase in confidence completing transfers without hesitation, and, notably, several participants read the plain-language confirmation aloud unprompted — a sign the copy was doing real work.</p>
