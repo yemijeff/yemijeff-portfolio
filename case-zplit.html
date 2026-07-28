@@ -31,9 +31,23 @@
       <p class="breadcrumb reveal"><a href="work.html">Work</a> / Zplit</p>
       <p class="eyebrow reveal">Case Study 04</p>
       <h1 class="reveal" style="font-size:56px; max-width:820px;">Zplit: simplifying group plans &amp; payments</h1>
-      <div class="case-shot-container wide reveal" style="margin-top:40px;">
-        <img src="images/zplit/zplit-hero.jpg" alt="Zplit Mobile App Showcase" class="case-shot-img">
-        <p class="image-caption">Zplit mobile application — group plans, contribution tracking &amp; shared payment flows</p>
+      
+      <div class="phone-showcase-container reveal">
+        <div class="phone-mockup-wrapper">
+          <div class="phone-notch"></div>
+          <div class="phone-screen-viewport">
+            <img src="images/zplit/screens/screen-1.jpg" alt="Group Plans Overview" class="phone-screen-slide active" id="slide-0">
+            <img src="images/zplit/screens/screen-2.jpg" alt="Create Plan &amp; Deadlines" class="phone-screen-slide" id="slide-1">
+            <img src="images/zplit/screens/screen-3.jpg" alt="Live Contribution Tracker" class="phone-screen-slide" id="slide-2">
+            <img src="images/zplit/screens/screen-4.jpg" alt="In-Group Communication" class="phone-screen-slide" id="slide-3">
+          </div>
+        </div>
+        <div class="phone-indicators">
+          <button class="phone-indicator-btn active" onclick="setSlide(0)">01 Group Plans</button>
+          <button class="phone-indicator-btn" onclick="setSlide(1)">02 Set Deadlines</button>
+          <button class="phone-indicator-btn" onclick="setSlide(2)">03 Contributions</button>
+          <button class="phone-indicator-btn" onclick="setSlide(3)">04 Activity Feed</button>
+        </div>
       </div>
     </div>
   </section>
@@ -143,6 +157,47 @@
     entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target);} });
   }, { threshold: 0.1 });
   revealEls.forEach(el => io.observe(el));
+
+  // Phone Mockup 8-Second Animated Loop
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.phone-screen-slide');
+  const btns = document.querySelectorAll('.phone-indicator-btn');
+  let slideTimer;
+
+  function setSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    btns.forEach((btn, i) => {
+      btn.classList.toggle('active', i === index);
+    });
+    currentSlide = index;
+    resetLoop();
+  }
+
+  function nextSlide() {
+    const next = (currentSlide + 1) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === next);
+    });
+    btns.forEach((btn, i) => {
+      btn.classList.toggle('active', i === next);
+    });
+    currentSlide = next;
+  }
+
+  function startLoop() {
+    slideTimer = setInterval(nextSlide, 2000); // 4 screens * 2s = 8s total loop
+  }
+
+  function resetLoop() {
+    clearInterval(slideTimer);
+    startLoop();
+  }
+
+  if (slides.length > 0) {
+    startLoop();
+  }
 </script>
 
 </body>
