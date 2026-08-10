@@ -14,7 +14,7 @@ all files in this folder.
 **Yemi Jeff Senbanjo** — Product Designer (UI/UX), Lagos, Nigeria, 6+ years of
 experience across fintech, healthcare, enterprise software, community
 platforms, and emerging tech (XR, AI). Currently:
-- Product Designer (Digital Banking, Contract) — Bankeasy Microfinance Bank (Aug 2025–Present)
+- Product Designer (Digital Banking, Contract) — Bankeasy Microfinance Bank (Sep 2025–Jun 2026)
 - Product Designer — ITEX Integrated Services Ltd (Dec 2024–Present)
 - Previously: Lead Facilitator/Instructor at Cirvee, UI/UX Designer at The Onyx
   Truth, UI/UX Designer at Niche-Plus Healthcare, Design Facilitator at Perxels
