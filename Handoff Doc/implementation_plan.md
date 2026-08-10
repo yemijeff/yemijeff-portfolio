@@ -15,7 +15,7 @@ This plan addresses the handoff brief for continuing work on the Yemi Jeff Senba
 > Site chrome (footer/contact section across `index.html`, `about.html`, etc.) currently uses `hello@yemijeff.com`, while `resume.html` and the real CV use `yemijefff@gmail.com`. We recommend standardizing site-wide to `yemijefff@gmail.com` (or `hello@yemijeff.com` if custom domain email is active).
 > 
 > **2. Social Media URLs**  
-> `LinkedIn` links point to `https://linkedin.com/in/yemijeffsenbanjo`, while `Behance` and `Dribbble` currently point to `#` placeholders. We need the real URLs for Behance and Dribbble if available.
+> `LinkedIn` links point to `https://www.linkedin.com/in/yemi-jeff-3026181a9/`, while `Behance` and `Dribbble` currently point to `#` placeholders. We need the real URLs for Behance and Dribbble if available.
 > 
 > **3. Stylesheet Architecture (`style.css` vs Inlined CSS)**  
 > Currently, each HTML file contains an inlined `<style>` block (~500 lines of CSS per page), while `style.css` is orphaned. We propose linking `style.css` as a shared external stylesheet `<link rel="stylesheet" href="style.css">` across all HTML pages, and keeping a lightweight sync utility or script to ensure single-source-of-truth maintainability without requiring a complex web server.

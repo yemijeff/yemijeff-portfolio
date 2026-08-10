@@ -145,7 +145,7 @@ This is the single most important section for whoever picks this up next.
 - Site chrome (footer, contact section, nav) uses `hello@yemijeff.com`. The real CV
   uses `yemijefff@gmail.com`. `resume.html` currently uses the real one — every
   other page uses the placeholder. Pick one and make it consistent everywhere.
-- `LinkedIn` links point to a placeholder URL: `https://linkedin.com/in/yemijeffsenbanjo`. Needs the real URL.
+- `LinkedIn` links point to a placeholder URL: `https://www.linkedin.com/in/yemi-jeff-3026181a9/`. Needs the real URL.
 - `Behance` and `Dribbble` links (referenced in the original creative brief's
   nav/contact spec, and present on `resume.html`) still point to `#` — need
   real URLs.

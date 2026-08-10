@@ -54,4 +54,4 @@ To maintain `style.css` as the single canonical source:
 
 - **Email**: `yemijefff@gmail.com`
 - **Phone**: +234 816 404 0068
-- **LinkedIn**: `https://linkedin.com/in/yemijeffsenbanjo`
+- **LinkedIn**: `https://www.linkedin.com/in/yemi-jeff-3026181a9/`
