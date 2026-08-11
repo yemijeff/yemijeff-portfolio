@@ -299,8 +299,57 @@
   }
 
   /* -------------------------------------------------------
+     THEME TOGGLE — Dark / Light mode with localStorage
+  ------------------------------------------------------- */
+  function initThemeToggle() {
+    const btn = document.querySelector('.theme-toggle');
+    if (!btn) return;
+
+    const html = document.documentElement;
+
+    // Apply saved preference immediately (no flash)
+    const saved = localStorage.getItem('yjs-theme');
+    if (saved) {
+      html.setAttribute('data-theme', saved);
+    }
+
+    function updateToggleLabel() {
+      const isDark = html.getAttribute('data-theme') === 'dark' ||
+        (!html.hasAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      btn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      btn.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    }
+
+    btn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      let next;
+      if (!current) {
+        next = systemPrefersDark ? 'light' : 'dark';
+      } else {
+        next = current === 'dark' ? 'light' : 'dark';
+      }
+
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('yjs-theme', next);
+      updateToggleLabel();
+    });
+
+    updateToggleLabel();
+  }
+
+  /* -------------------------------------------------------
      BOOT — run all effects on DOMContentLoaded
   ------------------------------------------------------- */
+  // Apply theme BEFORE render to prevent flash — runs immediately
+  (function applyThemeEarly() {
+    const saved = localStorage.getItem('yjs-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+  })();
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {
@@ -308,6 +357,7 @@
   }
 
   function boot() {
+    initThemeToggle();
     initPageTransitions();
     initHeroTextReveal();
     initCursorGlow();
@@ -319,3 +369,4 @@
   }
 
 })();
+
