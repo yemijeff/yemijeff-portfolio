@@ -248,7 +248,7 @@ section:first-of-type{ border-top:none; }
   inset:0;
   pointer-events:none;
   z-index:2;
-  background:rgba(10,10,10,0.92);
+  background:rgba(10,10,10,0.96);
   /* JS will override this with a radial gradient spotlight */
 }
 

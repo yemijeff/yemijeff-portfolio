@@ -422,8 +422,8 @@
       return;
     }
 
-    // Spotlight radius — smaller and softer than before
-    const R = 320;
+    // Spotlight radius — midpoint between the two reference sizes
+    const R = 440;
 
     let tx = -9999, ty = -9999; // target x/y
     let cx = -9999, cy = -9999; // current (lerped) x/y
@@ -437,27 +437,27 @@
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
-    // Diffused spotlight — 4 stops for a soft, natural vignette falloff
+    // 4-stop diffused gradient — soft vignette falloff
     function spotGradient(x, y) {
       if (isDarkMode()) {
         return `radial-gradient(circle ${R}px at ${x}px ${y}px,
           rgba(10,10,10,0.00) 0%,
           rgba(10,10,10,0.30) 30%,
-          rgba(10,10,10,0.65) 58%,
-          rgba(10,10,10,0.92) 85%
+          rgba(10,10,10,0.68) 58%,
+          rgba(10,10,10,0.96) 85%
         )`;
       } else {
         return `radial-gradient(circle ${R}px at ${x}px ${y}px,
           rgba(245,243,240,0.00) 0%,
           rgba(245,243,240,0.28) 30%,
-          rgba(245,243,240,0.65) 58%,
-          rgba(245,243,240,0.92) 85%
+          rgba(245,243,240,0.68) 58%,
+          rgba(245,243,240,0.96) 85%
         )`;
       }
     }
 
     function fullDim() {
-      return isDarkMode() ? 'rgba(10,10,10,0.92)' : 'rgba(245,243,240,0.92)';
+      return isDarkMode() ? 'rgba(10,10,10,0.96)' : 'rgba(245,243,240,0.96)';
     }
 
 
