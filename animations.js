@@ -404,8 +404,95 @@
     setTimeout(cycle, getNextInterval());
   }
 
+  /* -------------------------------------------------------
+     ABOUT TOUCH LIGHT
+     A radial spotlight follows the cursor over the About hero,
+     revealing the portrait by cutting a hole in the dimmer layer.
+  ------------------------------------------------------- */
+  function initAboutTouchLight() {
+    const hero   = document.getElementById('about-hero');
+    const dimmer = document.getElementById('about-hero-dimmer');
+    if (!hero || !dimmer) return;
+
+    // Skip on touch-only devices (no cursor)
+    const isTouch = window.matchMedia('(hover: none)').matches;
+    if (isTouch) return;
+
+    if (prefersReducedMotion) {
+      // Reduced motion: static gentle reveal in center
+      dimmer.style.background = 'rgba(10,10,10,0.55)';
+      return;
+    }
+
+    const RADIUS    = 320; // spotlight radius px
+    const DIM_DARK  = 'rgba(10,10,10,0.82)';
+    const DIM_LIGHT = 'rgba(238,236,234,0.78)';
+
+    // Lerp state
+    let targetX = -1000, targetY = -1000;
+    let currentX = -1000, currentY = -1000;
+    let isOver = false;
+    let raf;
+
+    function getDimColor() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+        (!document.documentElement.hasAttribute('data-theme') &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches);
+      return isDark ? DIM_DARK : DIM_LIGHT;
+    }
+
+    function applySpotlight(x, y, opacity) {
+      const dim = getDimColor();
+      // Parse out the alpha from dim color for edge opacity
+      const edgeAlpha = parseFloat(dim.match(/[\d.]+\)$/)[0]);
+      const baseRgb = dim.match(/rgba\((\d+),(\d+),(\d+)/);
+      const [r, g, b] = [baseRgb[1], baseRgb[2], baseRgb[3]];
+
+      // Spotlight: transparent at center, full dim at edges
+      dimmer.style.background = `radial-gradient(circle ${RADIUS}px at ${x}px ${y}px,
+        rgba(${r},${g},${b},0) 0%,
+        rgba(${r},${g},${b},${edgeAlpha * 0.35}) 30%,
+        rgba(${r},${g},${b},${edgeAlpha}) 75%
+      )`;
+      dimmer.style.opacity = opacity;
+    }
+
+    function animate() {
+      if (!isOver) return;
+      // Smooth lerp at 14% per frame
+      currentX += (targetX - currentX) * 0.14;
+      currentY += (targetY - currentY) * 0.14;
+      applySpotlight(currentX, currentY, 1);
+      raf = requestAnimationFrame(animate);
+    }
+
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
+
+      if (!isOver) {
+        isOver = true;
+        currentX = targetX;
+        currentY = targetY;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(animate);
+      }
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      isOver = false;
+      cancelAnimationFrame(raf);
+      // Ease back to full dark
+      dimmer.style.transition = 'background 0.6s ease, opacity 0.6s ease';
+      dimmer.style.background = getDimColor();
+      setTimeout(() => { dimmer.style.transition = ''; }, 650);
+    });
+  }
+
   function boot() {
     initThemeToggle();
+    initAboutTouchLight();
     initCurrentlyCycler();
     initPageTransitions();
     initHeroTextReveal();

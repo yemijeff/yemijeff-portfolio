@@ -212,113 +212,115 @@ section:first-of-type{ border-top:none; }
   .page-hero p.lede{ font-size:18px; }
 }
 
-/* ---------- About Hero — cinematic portrait ---------- */
+/* ---------- About Hero — cinematic portrait, centered, cursor touch-light ---------- */
 .about-hero{
   position:relative;
   width:100%;
   min-height:100vh;
   display:flex;
-  align-items:flex-end;
+  align-items:center;
+  justify-content:center;
   overflow:hidden;
   border-top:none;
-  /* Dark base so blending has a surface */
   background:#0A0A0A;
-  /* Override section padding */
   padding:0;
 }
 
-/* Portrait layer: covers the right 60% of the hero */
+/* 1 — Portrait background: mix-blend-mode:multiply kills white bg */
 .about-hero-img{
   position:absolute;
   inset:0;
-  /* Pull image right so face/upper body is center-right */
   background-image: url('images/yemi-portrait.jpg');
   background-size: cover;
-  background-position: center 15%;
+  background-position: center 12%;
   background-repeat: no-repeat;
-  /* multiply blend mode: white in the photo → page bg, darks stay dark */
   mix-blend-mode: multiply;
   opacity:0;
-  animation: about-img-reveal 1.4s cubic-bezier(.22,1,.36,1) .1s forwards;
+  animation: about-img-reveal 1.6s cubic-bezier(.22,1,.36,1) .05s forwards;
 }
 
-/* Multi-layer gradient overlay on top of the blended image */
+/* 2 — Cursor-reactive dimmer: JS sets a radial gradient hole where cursor is.
+        Default state: nearly fully dark (image barely visible) */
+.about-hero-dimmer{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  background:rgba(10,10,10,0.82);
+  /* JS will override this with a radial gradient */
+}
+
+/* 3 — Static gradient overlays: top edge (nav protection) */
 .about-hero-overlay{
   position:absolute;
   inset:0;
   pointer-events:none;
   background:
-    /* Strong left-edge gradient so text is always readable */
-    linear-gradient(to right,
-      rgba(10,10,10,0.92) 0%,
-      rgba(10,10,10,0.72) 35%,
-      rgba(10,10,10,0.18) 65%,
-      rgba(10,10,10,0) 100%
-    ),
-    /* Top-edge gradient: keep nav area dark */
     linear-gradient(to bottom,
       rgba(10,10,10,0.55) 0%,
-      rgba(10,10,10,0) 25%
+      rgba(10,10,10,0) 18%
     );
-  z-index:2;
+  z-index:3;
 }
 
-/* Bottom fade: image melts into page background */
+/* 4 — Bottom fade: melts into --bg */
 .about-hero-bottom-fade{
   position:absolute;
   bottom:0;
   left:0;
   right:0;
-  height:45%;
+  height:42%;
   background: linear-gradient(to bottom,
     rgba(10,10,10,0) 0%,
-    rgba(10,10,10,0.5) 35%,
+    rgba(10,10,10,0.45) 40%,
     var(--bg) 100%
   );
   pointer-events:none;
-  z-index:3;
+  z-index:4;
 }
 
-/* Text sits above all overlays */
+/* 5 — Text: centered, above everything */
 .about-hero-content{
   position:relative;
-  z-index:4;
-  padding-bottom:120px;
-  padding-top:0;
-  max-width:640px;
-  /* Align text to left side of the wrap */
-  margin-right:auto;
+  z-index:5;
+  text-align:center;
+  padding:0 var(--margin);
+  max-width:760px;
+  width:100%;
 }
 
 .about-hero-eyebrow{
-  font-size:14px; letter-spacing:0.08em; text-transform:uppercase;
-  color:rgba(255,255,255,0.5); margin-bottom:28px; font-weight:500;
-  opacity:0; transform:translateY(16px);
-  animation: about-text-in .7s cubic-bezier(.22,1,.36,1) .55s forwards;
+  font-size:14px; letter-spacing:0.1em; text-transform:uppercase;
+  color:rgba(255,255,255,0.45); margin-bottom:32px; font-weight:500;
+  display:block;
+  opacity:0; transform:translateY(14px);
+  animation: about-text-in .7s cubic-bezier(.22,1,.36,1) .6s forwards;
 }
 
 .about-hero-headline{
   font-family:'Newsreader', serif;
-  font-size:clamp(40px, 5.5vw, 72px);
+  font-size:clamp(42px, 6vw, 76px);
   font-weight:500;
-  line-height:1.1;
-  letter-spacing:-0.02em;
+  line-height:1.08;
+  letter-spacing:-0.025em;
   color:#FFFFFF;
-  margin-bottom:32px;
-  max-width:560px;
+  margin:0 auto 32px;
+  /* Constrain width so "What is it like" + "working with Yemi?" stays on 2 lines */
+  max-width:620px;
   opacity:0; transform:translateY(20px);
-  animation: about-text-in .8s cubic-bezier(.22,1,.36,1) .7s forwards;
+  animation: about-text-in .85s cubic-bezier(.22,1,.36,1) .75s forwards;
 }
 
 .about-hero-lede{
   font-family:'Newsreader', serif;
   font-style:italic;
-  font-size:clamp(18px, 2.2vw, 22px);
-  color:rgba(255,255,255,0.6);
-  line-height:1.6;
-  max-width:480px;
-  opacity:0; transform:translateY(20px);
-  animation: about-text-in .8s cubic-bezier(.22,1,.36,1) .85s forwards;
+  font-size:clamp(17px, 2vw, 21px);
+  color:rgba(255,255,255,0.55);
+  line-height:1.65;
+  margin:0 auto;
+  max-width:560px;
+  opacity:0; transform:translateY(18px);
+  animation: about-text-in .85s cubic-bezier(.22,1,.36,1) .9s forwards;
 }
 
 @keyframes about-img-reveal{
@@ -329,95 +331,77 @@ section:first-of-type{ border-top:none; }
   to{ opacity:1; transform:translateY(0); }
 }
 
-/* Light mode override — tint the bg to match --bg */
+/* ── Light mode ─────────────────────────────────── */
 [data-theme="light"] .about-hero{
-  background:#F5F4F2;
+  background:#EEECEA;
+}
+[data-theme="light"] .about-hero-img{
+  mix-blend-mode: multiply;
+}
+[data-theme="light"] .about-hero-dimmer{
+  background: rgba(238,236,234,0.78);
 }
 [data-theme="light"] .about-hero-overlay{
   background:
-    linear-gradient(to right,
-      rgba(245,244,242,0.95) 0%,
-      rgba(245,244,242,0.78) 38%,
-      rgba(245,244,242,0.22) 65%,
-      rgba(245,244,242,0) 100%
-    ),
     linear-gradient(to bottom,
-      rgba(245,244,242,0.6) 0%,
-      rgba(245,244,242,0) 25%
+      rgba(238,236,234,0.65) 0%,
+      rgba(238,236,234,0) 20%
     );
 }
 [data-theme="light"] .about-hero-bottom-fade{
   background: linear-gradient(to bottom,
-    rgba(245,244,242,0) 0%,
-    rgba(245,244,242,0.55) 35%,
+    rgba(238,236,234,0) 0%,
+    rgba(238,236,234,0.5) 40%,
     #FAFAF8 100%
   );
 }
 [data-theme="light"] .about-hero-headline{ color:#111111; }
-[data-theme="light"] .about-hero-eyebrow{ color:rgba(17,17,17,0.45); }
-[data-theme="light"] .about-hero-lede{ color:rgba(17,17,17,0.55); }
+[data-theme="light"] .about-hero-eyebrow{ color:rgba(17,17,17,0.4); }
+[data-theme="light"] .about-hero-lede{ color:rgba(17,17,17,0.5); }
 
-/* Tablet */
+/* ── Tablet ──────────────────────────────────────── */
 @media (max-width:1024px){
-  .about-hero-content{
-    padding-bottom:100px;
-    max-width:520px;
-  }
-  .about-hero-img{
-    background-position:65% 15%;
-  }
-  .about-hero-overlay{
-    background:
-      linear-gradient(to right,
-        rgba(10,10,10,0.96) 0%,
-        rgba(10,10,10,0.80) 40%,
-        rgba(10,10,10,0.25) 70%,
-        rgba(10,10,10,0) 100%
-      ),
-      linear-gradient(to bottom,
-        rgba(10,10,10,0.6) 0%,
-        rgba(10,10,10,0) 22%
-      );
-  }
+  .about-hero-content{ max-width:640px; }
+  .about-hero-headline{ font-size:clamp(38px, 5.5vw, 62px); max-width:540px; }
 }
 
-/* Mobile */
+/* ── Mobile ──────────────────────────────────────── */
 @media (max-width:640px){
   .about-hero{
     min-height:100svh;
-    align-items:flex-end;
+    align-items:center;
   }
-  /* On mobile: image is full-bleed, shifted up so face is visible */
   .about-hero-img{
     background-position:50% 8%;
-    background-size:cover;
   }
-  /* Much heavier left+top overlay on mobile */
-  .about-hero-overlay{
+  /* On mobile: no cursor, make image slightly more visible in center */
+  .about-hero-dimmer{
     background:
-      linear-gradient(to bottom,
-        rgba(10,10,10,0.70) 0%,
-        rgba(10,10,10,0.30) 30%,
-        rgba(10,10,10,0.15) 55%,
-        rgba(10,10,10,0) 75%
-      ),
-      linear-gradient(to right,
-        rgba(10,10,10,0.8) 0%,
-        rgba(10,10,10,0.3) 60%,
-        rgba(10,10,10,0) 100%
+      radial-gradient(ellipse 55% 50% at 50% 42%,
+        rgba(10,10,10,0.42) 0%,
+        rgba(10,10,10,0.85) 100%
+      );
+  }
+  [data-theme="light"] .about-hero-dimmer{
+    background:
+      radial-gradient(ellipse 55% 50% at 50% 42%,
+        rgba(238,236,234,0.3) 0%,
+        rgba(238,236,234,0.82) 100%
       );
   }
   .about-hero-content{
-    padding-bottom:88px;
+    padding:0 var(--margin);
     max-width:100%;
   }
   .about-hero-headline{
-    font-size:clamp(32px,9vw,44px);
+    font-size:clamp(34px, 9vw, 46px);
+    max-width:100%;
   }
+  .about-hero-lede{ font-size:16px; }
   .about-hero-lede br{ display:none; }
 }
 
-/* Reduced motion */
+/* ── Reduced motion ──────────────────────────────── */
 @media (prefers-reduced-motion:reduce){
   .about-hero-img,
   .about-hero-eyebrow,
@@ -427,9 +411,10 @@ section:first-of-type{ border-top:none; }
     opacity:1 !important;
     transform:none !important;
   }
+  .about-hero-dimmer{
+    background:rgba(10,10,10,0.55) !important;
+  }
 }
-
-
 
 /* ---------- Hero (home) ---------- */
 .hero{ padding:140px 0 120px; }

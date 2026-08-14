@@ -37,23 +37,27 @@
 <main>
 
   <!-- ABOUT HERO — cinematic portrait -->
-  <section class="about-hero" aria-label="About Yemi Jeff Senbanjo">
+  <section class="about-hero" id="about-hero" aria-label="About Yemi Jeff Senbanjo">
     <!-- Portrait background layer -->
     <div class="about-hero-img" role="img" aria-label="Portrait of Yemi Jeff Senbanjo"></div>
 
-    <!-- Multi-layer gradient overlays -->
-    <div class="about-hero-overlay" aria-hidden="true"></div>
+    <!-- Cursor-reactive dimmer (JS updates this to create the spotlight) -->
+    <div class="about-hero-dimmer" id="about-hero-dimmer" aria-hidden="true"></div>
 
-    <!-- Text content -->
-    <div class="about-hero-content wrap">
-      <p class="eyebrow about-hero-eyebrow">About</p>
-      <h1 class="about-hero-headline">What is it like<br>working with Yemi?</h1>
-      <p class="about-hero-lede">Curious, direct, and a little obsessed<br>with the gap between what a product does<br>and what it feels like to use.</p>
-    </div>
+    <!-- Static gradient overlays (top edge + bottom fade protection) -->
+    <div class="about-hero-overlay" aria-hidden="true"></div>
 
     <!-- Bottom fade into page background -->
     <div class="about-hero-bottom-fade" aria-hidden="true"></div>
+
+    <!-- Centered text content -->
+    <div class="about-hero-content" aria-live="off">
+      <p class="eyebrow about-hero-eyebrow">About</p>
+      <h1 class="about-hero-headline">What is it like<br>working with Yemi?</h1>
+      <p class="about-hero-lede">Curious, direct, and a little obsessed with the gap<br>between what a product does and what it feels like to use.</p>
+    </div>
   </section>
+
 
 
 
