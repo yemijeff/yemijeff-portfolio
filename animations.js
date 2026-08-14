@@ -422,11 +422,13 @@
       return;
     }
 
-    // Spotlight radius — smaller and softer than before
-    const R = 320;
+    // Base ellipse dimensions — wider than tall for an oval, not a circle
+    const BASE_RX = 360, BASE_RY = 240;
 
-    let tx = -9999, ty = -9999; // target x/y
-    let cx = -9999, cy = -9999; // current (lerped) x/y
+    let tx = -9999, ty = -9999;  // cursor target
+    let cx = -9999, cy = -9999;  // lerped cursor position
+    let prevTx = -9999, prevTy = -9999; // for velocity
+    let rx = BASE_RX, ry = BASE_RY;    // current ellipse radii (morph with velocity)
     let active = false;
     let raf = null;
 
@@ -437,21 +439,21 @@
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
-    // Diffused spotlight — 4 stops for a soft, natural vignette falloff
-    function spotGradient(x, y) {
+    // Organic ellipse gradient — 4 stops, wider X than Y for oval feel
+    function spotGradient(x, y, rX, rY) {
       if (isDarkMode()) {
-        return `radial-gradient(circle ${R}px at ${x}px ${y}px,
+        return `radial-gradient(ellipse ${rX}px ${rY}px at ${x}px ${y}px,
           rgba(10,10,10,0.00) 0%,
-          rgba(10,10,10,0.30) 30%,
-          rgba(10,10,10,0.65) 58%,
-          rgba(10,10,10,0.92) 85%
+          rgba(10,10,10,0.28) 28%,
+          rgba(10,10,10,0.68) 60%,
+          rgba(10,10,10,0.92) 86%
         )`;
       } else {
-        return `radial-gradient(circle ${R}px at ${x}px ${y}px,
+        return `radial-gradient(ellipse ${rX}px ${rY}px at ${x}px ${y}px,
           rgba(245,243,240,0.00) 0%,
-          rgba(245,243,240,0.28) 30%,
-          rgba(245,243,240,0.65) 58%,
-          rgba(245,243,240,0.92) 85%
+          rgba(245,243,240,0.25) 28%,
+          rgba(245,243,240,0.68) 60%,
+          rgba(245,243,240,0.92) 86%
         )`;
       }
     }
@@ -460,13 +462,27 @@
       return isDarkMode() ? 'rgba(10,10,10,0.92)' : 'rgba(245,243,240,0.92)';
     }
 
-
     function loop() {
       if (!active) return;
-      // Lerp 16% per frame — smooth but responsive
+
+      // Smooth cursor lerp
       cx += (tx - cx) * 0.16;
       cy += (ty - cy) * 0.16;
-      dimmer.style.background = spotGradient(cx, cy);
+
+      // Velocity — how fast the target is moving
+      const velX = Math.abs(tx - prevTx);
+      const velY = Math.abs(ty - prevTy);
+      prevTx = tx; prevTy = ty;
+
+      // Stretch ellipse in the direction of movement (max +80px)
+      const targetRX = BASE_RX + Math.min(velX * 2.2, 80);
+      const targetRY = BASE_RY + Math.min(velY * 2.2, 80);
+
+      // Lerp the ellipse back toward base when cursor slows
+      rx += (targetRX - rx) * 0.10;
+      ry += (targetRY - ry) * 0.10;
+
+      dimmer.style.background = spotGradient(cx, cy, Math.round(rx), Math.round(ry));
       raf = requestAnimationFrame(loop);
     }
 
@@ -477,7 +493,8 @@
 
       if (!active) {
         active = true;
-        cx = tx; cy = ty; // snap on first entry
+        cx = tx; cy = ty;
+        prevTx = tx; prevTy = ty;
         cancelAnimationFrame(raf);
         raf = requestAnimationFrame(loop);
       }
@@ -486,12 +503,12 @@
     hero.addEventListener('mouseleave', () => {
       active = false;
       cancelAnimationFrame(raf);
-      // Smooth fade back to full dark
       dimmer.style.transition = 'background 0.55s ease';
       dimmer.style.background = fullDim();
       setTimeout(() => { dimmer.style.transition = ''; }, 600);
     });
   }
+
 
 
   function boot() {

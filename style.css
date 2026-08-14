@@ -249,7 +249,9 @@ section:first-of-type{ border-top:none; }
   pointer-events:none;
   z-index:2;
   background:rgba(10,10,10,0.92);
-  /* JS will override this with a radial gradient spotlight */
+  /* Blur spreads the ellipse edges to look organic, not geometric */
+  filter: blur(14px);
+  /* JS will override background with a radial gradient spotlight */
 }
 
 /* 3 — Static gradient overlays: top edge (nav protection) */
