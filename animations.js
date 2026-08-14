@@ -437,26 +437,27 @@
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
-    // Build spotlight gradient string (dark mode or light mode)
+    // Build spotlight gradient — nearly fully clears at center, soft edge
     function spotGradient(x, y) {
       if (isDarkMode()) {
         return `radial-gradient(circle ${R}px at ${x}px ${y}px,
-          rgba(10,10,10,0.0)  0%,
-          rgba(10,10,10,0.25) 35%,
-          rgba(10,10,10,0.82) 72%
+          rgba(10,10,10,0.00) 0%,
+          rgba(10,10,10,0.08) 40%,
+          rgba(10,10,10,0.58) 78%
         )`;
       } else {
         return `radial-gradient(circle ${R}px at ${x}px ${y}px,
-          rgba(238,236,234,0.0)  0%,
-          rgba(238,236,234,0.22) 35%,
-          rgba(238,236,234,0.78) 72%
+          rgba(238,236,234,0.00) 0%,
+          rgba(238,236,234,0.07) 40%,
+          rgba(238,236,234,0.60) 78%
         )`;
       }
     }
 
     function fullDim() {
-      return isDarkMode() ? 'rgba(10,10,10,0.82)' : 'rgba(238,236,234,0.78)';
+      return isDarkMode() ? 'rgba(10,10,10,0.58)' : 'rgba(238,236,234,0.60)';
     }
+
 
     function loop() {
       if (!active) return;
