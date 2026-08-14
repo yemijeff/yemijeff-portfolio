@@ -368,12 +368,13 @@ section:first-of-type{ border-top:none; }
 @media (max-width:640px){
   .about-hero{
     min-height:100svh;
-    align-items:center;
+    /* flex-end pushes text to the bottom — eliminates the gap below the lede */
+    align-items:flex-end;
   }
   .about-hero-img{
     background-position:50% 8%;
   }
-  /* On mobile: no cursor, make image slightly more visible in center */
+  /* On mobile: static radial reveal centred on the face */
   .about-hero-dimmer{
     background:
       radial-gradient(ellipse 55% 50% at 50% 42%,
@@ -389,8 +390,10 @@ section:first-of-type{ border-top:none; }
       );
   }
   .about-hero-content{
-    padding:0 var(--margin);
+    /* Add bottom padding so text has breathing room above MY STORY */
+    padding:0 var(--margin) 64px;
     max-width:100%;
+    text-align:center;
   }
   .about-hero-headline{
     font-size:clamp(28px, 7.5vw, 38px);
@@ -399,6 +402,7 @@ section:first-of-type{ border-top:none; }
   .about-hero-lede{ font-size:16px; }
   .about-hero-lede br{ display:none; }
 }
+
 
 /* ── Reduced motion ──────────────────────────────── */
 @media (prefers-reduced-motion:reduce){
