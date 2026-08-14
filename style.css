@@ -248,8 +248,7 @@ section:first-of-type{ border-top:none; }
   inset:0;
   pointer-events:none;
   z-index:2;
-  /* Default: dark enough to hide the white bg, but face ghost visible */
-  background:rgba(10,10,10,0.80);
+  background:rgba(10,10,10,0.92);
   /* JS will override this with a radial gradient spotlight */
 }
 

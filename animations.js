@@ -443,19 +443,19 @@
         return `radial-gradient(circle ${R}px at ${x}px ${y}px,
           rgba(10,10,10,0.00) 0%,
           rgba(10,10,10,0.05) 38%,
-          rgba(10,10,10,0.80) 80%
+          rgba(10,10,10,0.92) 78%
         )`;
       } else {
         return `radial-gradient(circle ${R}px at ${x}px ${y}px,
           rgba(245,243,240,0.00) 0%,
           rgba(245,243,240,0.06) 38%,
-          rgba(245,243,240,0.82) 80%
+          rgba(245,243,240,0.92) 78%
         )`;
       }
     }
 
     function fullDim() {
-      return isDarkMode() ? 'rgba(10,10,10,0.80)' : 'rgba(245,243,240,0.82)';
+      return isDarkMode() ? 'rgba(10,10,10,0.92)' : 'rgba(245,243,240,0.92)';
     }
 
 
