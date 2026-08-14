@@ -356,8 +356,57 @@
     boot();
   }
 
+  /* -------------------------------------------------------
+     CURRENTLY — cycling single-item text section
+  ------------------------------------------------------- */
+  function initCurrentlyCycler() {
+    const stage = document.querySelector('.currently-stage');
+    if (!stage) return;
+
+    const items = [
+      'Designing enterprise fintech products',
+      'Building Tryblie',
+      'Teaching Product Design',
+      'Learning XR & Game Design',
+      'Writing about design and technology',
+    ];
+
+    let current = 0;
+    const textEl = stage.querySelector('.currently-text');
+    if (!textEl) return;
+
+    function getNextInterval() {
+      // Random between 2500ms and 5000ms
+      return Math.floor(Math.random() * 2500) + 2500;
+    }
+
+    function cycle() {
+      // Fade out current
+      textEl.classList.add('out');
+      textEl.classList.remove('in');
+
+      setTimeout(() => {
+        current = (current + 1) % items.length;
+        textEl.textContent = items[current];
+        textEl.classList.remove('out');
+        textEl.classList.add('in');
+
+        setTimeout(() => {
+          textEl.classList.remove('in');
+        }, 600);
+
+      }, 450); // matches .out animation duration
+
+      setTimeout(cycle, getNextInterval() + 450);
+    }
+
+    // Kick off after first interval
+    setTimeout(cycle, getNextInterval());
+  }
+
   function boot() {
     initThemeToggle();
+    initCurrentlyCycler();
     initPageTransitions();
     initHeroTextReveal();
     initCursorGlow();

@@ -229,19 +229,51 @@ section:first-of-type{ border-top:none; }
   .hero h1{ font-size:36px; }
 }
 
-/* ---------- Current Focus ---------- */
-.focus-list{ list-style:none; }
-.focus-list li{
-  display:flex; gap:24px; align-items:baseline;
-  padding:20px 0; border-bottom:1px solid var(--border);
-  font-family:'Newsreader', serif; font-size:24px;
+/* ---------- Currently — cycling section ---------- */
+.currently-wrap{
+  text-align:center;
+  padding:80px var(--margin);
+  max-width:var(--wide-w);
+  margin:0 auto;
 }
-.focus-list li:first-child{ padding-top:0; }
-.focus-list li:last-child{ border-bottom:none; }
-.focus-list .dot{
-  width:6px; height:6px; border-radius:50%; background:var(--text);
-  flex-shrink:0; transform:translateY(-4px);
+.currently-label{
+  margin-bottom:32px;
+  display:block;
 }
+.currently-stage{
+  min-height:120px;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.currently-text{
+  font-family:'Newsreader', serif;
+  font-size:clamp(36px, 6vw, 72px);
+  font-weight:500;
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  color:var(--text);
+  display:block;
+  max-width:860px;
+  transition:color .3s ease;
+}
+.currently-text.out{
+  animation:currently-out .45s cubic-bezier(.4,0,.2,1) forwards;
+}
+.currently-text.in{
+  animation:currently-in .55s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes currently-out{
+  0%  { opacity:1; transform:translateY(0); }
+  100%{ opacity:0; transform:translateY(-28px); }
+}
+@keyframes currently-in{
+  0%  { opacity:0; transform:translateY(28px); }
+  100%{ opacity:1; transform:translateY(0); }
+}
+@media (prefers-reduced-motion:reduce){
+  .currently-text.out, .currently-text.in{ animation:none; opacity:1; transform:none; }
+}
+
 
 /* ---------- Selected Work / Work list ---------- */
 .work-wrap{ display:flex; gap:64px; align-items:flex-start; }
