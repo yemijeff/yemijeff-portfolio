@@ -222,7 +222,9 @@ section:first-of-type{ border-top:none; }
   justify-content:center;
   overflow:hidden;
   border-top:none;
-  background:#0A0A0A;
+  /* White bg so mix-blend-mode:multiply removes the photo's white studio
+     background while preserving all face/skin tones perfectly */
+  background:#FFFFFF;
   padding:0;
 }
 
@@ -246,8 +248,9 @@ section:first-of-type{ border-top:none; }
   inset:0;
   pointer-events:none;
   z-index:2;
-  background:rgba(10,10,10,0.58);
-  /* JS will override this with a radial gradient */
+  /* Default: dark enough to hide the white bg, but face ghost visible */
+  background:rgba(10,10,10,0.80);
+  /* JS will override this with a radial gradient spotlight */
 }
 
 /* 3 — Static gradient overlays: top edge (nav protection) */
@@ -331,14 +334,12 @@ section:first-of-type{ border-top:none; }
 }
 
 /* ── Light mode ─────────────────────────────────── */
+/* Light mode: hero bg stays white, use warm-tinted dimmer */
 [data-theme="light"] .about-hero{
-  background:#EEECEA;
-}
-[data-theme="light"] .about-hero-img{
-  mix-blend-mode: multiply;
+  background:#FFFFFF;
 }
 [data-theme="light"] .about-hero-dimmer{
-  background: rgba(238,236,234,0.60);
+  background: rgba(245,243,240,0.82);
 }
 [data-theme="light"] .about-hero-overlay{
   background:

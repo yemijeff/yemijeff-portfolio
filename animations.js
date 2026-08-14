@@ -437,25 +437,25 @@
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
-    // Build spotlight gradient — nearly fully clears at center, soft edge
+    // Build spotlight gradient — fully transparent at center for maximum reveal
     function spotGradient(x, y) {
       if (isDarkMode()) {
         return `radial-gradient(circle ${R}px at ${x}px ${y}px,
           rgba(10,10,10,0.00) 0%,
-          rgba(10,10,10,0.08) 40%,
-          rgba(10,10,10,0.58) 78%
+          rgba(10,10,10,0.05) 38%,
+          rgba(10,10,10,0.80) 80%
         )`;
       } else {
         return `radial-gradient(circle ${R}px at ${x}px ${y}px,
-          rgba(238,236,234,0.00) 0%,
-          rgba(238,236,234,0.07) 40%,
-          rgba(238,236,234,0.60) 78%
+          rgba(245,243,240,0.00) 0%,
+          rgba(245,243,240,0.06) 38%,
+          rgba(245,243,240,0.82) 80%
         )`;
       }
     }
 
     function fullDim() {
-      return isDarkMode() ? 'rgba(10,10,10,0.58)' : 'rgba(238,236,234,0.60)';
+      return isDarkMode() ? 'rgba(10,10,10,0.80)' : 'rgba(245,243,240,0.82)';
     }
 
 
