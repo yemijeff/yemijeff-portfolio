@@ -422,8 +422,8 @@
       return;
     }
 
-    // Spotlight is 580px radius — large, soft reveal
-    const R = 580;
+    // Spotlight radius — smaller and softer than before
+    const R = 320;
 
     let tx = -9999, ty = -9999; // target x/y
     let cx = -9999, cy = -9999; // current (lerped) x/y
@@ -437,19 +437,21 @@
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
-    // Build spotlight gradient — fully transparent at center for maximum reveal
+    // Diffused spotlight — 4 stops for a soft, natural vignette falloff
     function spotGradient(x, y) {
       if (isDarkMode()) {
         return `radial-gradient(circle ${R}px at ${x}px ${y}px,
           rgba(10,10,10,0.00) 0%,
-          rgba(10,10,10,0.05) 38%,
-          rgba(10,10,10,0.92) 78%
+          rgba(10,10,10,0.30) 30%,
+          rgba(10,10,10,0.65) 58%,
+          rgba(10,10,10,0.92) 85%
         )`;
       } else {
         return `radial-gradient(circle ${R}px at ${x}px ${y}px,
           rgba(245,243,240,0.00) 0%,
-          rgba(245,243,240,0.06) 38%,
-          rgba(245,243,240,0.92) 78%
+          rgba(245,243,240,0.28) 30%,
+          rgba(245,243,240,0.65) 58%,
+          rgba(245,243,240,0.92) 85%
         )`;
       }
     }
