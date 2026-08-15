@@ -47,9 +47,15 @@
         <a href="work.html" class="btn reveal">View Work <span class="btn-arrow">→</span></a>
       </div>
       <!-- Right: cinematic portrait -->
-      <div class="hero-portrait" aria-hidden="true">
-        <img src="images/yemi-smile.png" alt="Yemi Jeff Senbanjo" class="hero-portrait-img">
+      <div class="hero-portrait" id="hero-portrait" aria-hidden="true">
+        <!-- Light mode: transparent PNG blends with any bg -->
+        <img src="images/yemi-smile.png" alt="" class="hero-portrait-img hero-portrait-light">
+        <!-- Dark mode: JPG with multiply blend — JS cursor spotlight reveals it -->
+        <img src="images/yemi-smile.jpg" alt="" class="hero-portrait-img hero-portrait-dark">
+        <!-- Dark mode cursor spotlight dimmer -->
+        <div class="hero-portrait-dimmer" id="hero-portrait-dimmer"></div>
       </div>
+
     </div>
   </section>
 

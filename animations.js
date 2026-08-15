@@ -494,9 +494,77 @@
   }
 
 
+  /* -------------------------------------------------------
+     HOME HERO PORTRAIT SPOTLIGHT (dark mode only)
+     Same cursor touch-light as About page, scoped to the
+     right portrait column on the homepage.
+  ------------------------------------------------------- */
+  function initHomePortraitLight() {
+    const col    = document.getElementById('hero-portrait');
+    const dimmer = document.getElementById('hero-portrait-dimmer');
+    if (!col || !dimmer) return;
+
+    // Only runs in dark mode; light mode uses transparent PNG
+    function isDark() {
+      const t = document.documentElement.getAttribute('data-theme');
+      return t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+
+    if (!isDark()) return;
+    if (window.matchMedia('(hover: none)').matches) return;
+    if (prefersReducedMotion) { dimmer.style.background = 'rgba(10,10,10,0.55)'; return; }
+
+    const R = 280; // smaller than About page to fit the column width
+
+    let tx = -9999, ty = -9999;
+    let cx = -9999, cy = -9999;
+    let active = false;
+    let raf = null;
+
+    function spotGradient(x, y) {
+      return `radial-gradient(circle ${R}px at ${x}px ${y}px,
+        rgba(10,10,10,0.00) 0%,
+        rgba(10,10,10,0.30) 30%,
+        rgba(10,10,10,0.68) 58%,
+        rgba(10,10,10,0.92) 85%
+      )`;
+    }
+
+    function loop() {
+      if (!active) return;
+      cx += (tx - cx) * 0.16;
+      cy += (ty - cy) * 0.16;
+      dimmer.style.background = spotGradient(cx, cy);
+      raf = requestAnimationFrame(loop);
+    }
+
+    col.addEventListener('mousemove', (e) => {
+      // Bail out if theme switched to light
+      if (!isDark()) return;
+      const rect = col.getBoundingClientRect();
+      tx = e.clientX - rect.left;
+      ty = e.clientY - rect.top;
+      if (!active) {
+        active = true;
+        cx = tx; cy = ty;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(loop);
+      }
+    });
+
+    col.addEventListener('mouseleave', () => {
+      active = false;
+      cancelAnimationFrame(raf);
+      dimmer.style.transition = 'background 0.55s ease';
+      dimmer.style.background = 'rgba(10,10,10,0.92)';
+      setTimeout(() => { dimmer.style.transition = ''; }, 600);
+    });
+  }
+
   function boot() {
     initThemeToggle();
     initAboutTouchLight();
+    initHomePortraitLight();
     initCurrentlyCycler();
     initPageTransitions();
     initHeroTextReveal();

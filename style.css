@@ -469,7 +469,31 @@ section:first-of-type{ border-top:none; }
     transparent 16%
   );
   pointer-events:none;
-  z-index:1;
+  z-index:3;
+}
+
+/* ── Light mode: transparent PNG only ─────────────── */
+.hero-portrait-light { display:block; }
+.hero-portrait-dark  { display:none; }
+.hero-portrait-dimmer{ display:none; }
+
+/* ── Dark mode: JPG + multiply + spotlight dimmer ─── */
+[data-theme="dark"] .hero-portrait{
+  /* White bg so mix-blend-mode:multiply kills the studio white correctly */
+  background:#FFFFFF;
+}
+[data-theme="dark"] .hero-portrait-light{ display:none; }
+[data-theme="dark"] .hero-portrait-dark{
+  display:block;
+  mix-blend-mode:multiply;
+}
+[data-theme="dark"] .hero-portrait-dimmer{
+  display:block;
+  position:absolute;
+  inset:0;
+  background:rgba(10,10,10,0.92);
+  pointer-events:none;
+  z-index:2;
 }
 
 
