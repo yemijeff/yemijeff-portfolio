@@ -449,14 +449,16 @@ section:first-of-type{ border-top:none; }
   object-position:center 10%;
   /* multiply removes the white studio bg, preserves all face/skin tones */
   mix-blend-mode:multiply;
+  /* Mirror so figure faces toward the text */
+  transform:scaleX(-1);
   display:block;
   opacity:0;
   animation: hero-portrait-in 1.4s cubic-bezier(.22,1,.36,1) .3s forwards;
 }
 
 @keyframes hero-portrait-in{
-  0%  { opacity:0; transform:scale(1.04); }
-  100%{ opacity:1; transform:scale(1); }
+  0%  { opacity:0; transform:scaleX(-1) scale(1.04); }
+  100%{ opacity:1; transform:scaleX(-1) scale(1); }
 }
 
 /* Light mode: page bg is already light so multiply works perfectly */
