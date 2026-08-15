@@ -496,26 +496,21 @@
 
   /* -------------------------------------------------------
      HOME HERO PORTRAIT SPOTLIGHT (dark mode only)
-     Same cursor touch-light as About page, scoped to the
-     right portrait column on the homepage.
+     Listeners always registered — isDark() checked live
+     so theme toggle after page load works correctly.
   ------------------------------------------------------- */
   function initHomePortraitLight() {
     const col    = document.getElementById('hero-portrait');
     const dimmer = document.getElementById('hero-portrait-dimmer');
     if (!col || !dimmer) return;
+    if (window.matchMedia('(hover: none)').matches) return;
 
-    // Only runs in dark mode; light mode uses transparent PNG
     function isDark() {
       const t = document.documentElement.getAttribute('data-theme');
       return t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
 
-    if (!isDark()) return;
-    if (window.matchMedia('(hover: none)').matches) return;
-    if (prefersReducedMotion) { dimmer.style.background = 'rgba(10,10,10,0.55)'; return; }
-
-    const R = 280; // smaller than About page to fit the column width
-
+    const R = 280;
     let tx = -9999, ty = -9999;
     let cx = -9999, cy = -9999;
     let active = false;
@@ -530,6 +525,11 @@
       )`;
     }
 
+    function stopLoop() {
+      active = false;
+      cancelAnimationFrame(raf);
+    }
+
     function loop() {
       if (!active) return;
       cx += (tx - cx) * 0.16;
@@ -539,8 +539,11 @@
     }
 
     col.addEventListener('mousemove', (e) => {
-      // Bail out if theme switched to light
-      if (!isDark()) return;
+      if (!isDark() || prefersReducedMotion) {
+        // Light mode — stop any running spotlight
+        stopLoop();
+        return;
+      }
       const rect = col.getBoundingClientRect();
       tx = e.clientX - rect.left;
       ty = e.clientY - rect.top;
@@ -553,8 +556,8 @@
     });
 
     col.addEventListener('mouseleave', () => {
-      active = false;
-      cancelAnimationFrame(raf);
+      if (!isDark()) return;
+      stopLoop();
       dimmer.style.transition = 'background 0.55s ease';
       dimmer.style.background = 'rgba(10,10,10,0.92)';
       setTimeout(() => { dimmer.style.transition = ''; }, 600);

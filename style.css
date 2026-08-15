@@ -451,6 +451,8 @@ section:first-of-type{ border-top:none; }
   transform:scaleX(-1);
   display:block;
   opacity:0;
+  position:relative;
+  z-index:1; /* ensures dimmer (z-index:2) always sits above */
   animation: hero-portrait-in 1.4s cubic-bezier(.22,1,.36,1) .3s forwards;
 }
 
@@ -459,7 +461,7 @@ section:first-of-type{ border-top:none; }
   100%{ opacity:1; transform:scaleX(-1) scale(1); }
 }
 
-/* Subtle left-edge fade so figure flows into text column */
+/* Left-edge gradient fade — above the dimmer */
 .hero-portrait::before{
   content:'';
   position:absolute;
@@ -478,9 +480,11 @@ section:first-of-type{ border-top:none; }
 .hero-portrait-dimmer{ display:none; }
 
 /* ── Dark mode: JPG + multiply + spotlight dimmer ─── */
+/* Matches both explicit data-theme and system preference */
+[data-theme="dark"] .hero-portrait,
+@media (prefers-color-scheme: dark) { .hero-portrait:not([data-theme="light"] *) }
 [data-theme="dark"] .hero-portrait{
-  /* White bg so mix-blend-mode:multiply kills the studio white correctly */
-  background:#FFFFFF;
+  background:#FFFFFF; /* multiply needs white bg to erase studio white */
 }
 [data-theme="dark"] .hero-portrait-light{ display:none; }
 [data-theme="dark"] .hero-portrait-dark{
@@ -494,6 +498,21 @@ section:first-of-type{ border-top:none; }
   background:rgba(10,10,10,0.92);
   pointer-events:none;
   z-index:2;
+}
+
+/* System dark preference (when data-theme not yet set) */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .hero-portrait{ background:#FFFFFF; }
+  :root:not([data-theme="light"]) .hero-portrait-light{ display:none; }
+  :root:not([data-theme="light"]) .hero-portrait-dark{ display:block; mix-blend-mode:multiply; }
+  :root:not([data-theme="light"]) .hero-portrait-dimmer{
+    display:block;
+    position:absolute;
+    inset:0;
+    background:rgba(10,10,10,0.92);
+    pointer-events:none;
+    z-index:2;
+  }
 }
 
 
