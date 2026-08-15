@@ -37,27 +37,29 @@
 <main id="top">
 
   <!-- HERO -->
-  <section class="hero" style="border-top:none;">
+  <section class="hero" id="home-hero" style="border-top:none;">
+    <!-- Portrait background on the right side -->
+    <div class="hero-portrait-bg" id="hero-portrait-bg" aria-hidden="true">
+      <img src="images/yemi-smile.jpg" alt="Yemi Jeff Senbanjo" class="hero-portrait-img">
+    </div>
+
+    <!-- Full-hero spotlight dimmer (covers entire hero screen) -->
+    <div class="hero-dimmer" id="hero-dimmer"></div>
+
+    <!-- Bottom fade into page background -->
+    <div class="hero-bottom-fade"></div>
+
+    <!-- Hero Content (Text on the left) -->
     <div class="wrap hero-wrap">
-      <!-- Left: text -->
       <div class="hero-text">
         <p class="eyebrow reveal">Product Designer — Lagos &amp; Remote</p>
         <h1 class="reveal">The best products aren't remembered because they look beautiful. <em>They're remembered because they make people's lives a little easier.</em></h1>
         <p class="hero-intro reveal">Hi, I'm Yemi Jeff Senbanjo. A Product Designer with 6+ years of experience designing thoughtful digital products across fintech, enterprise software, community platforms and emerging technologies.</p>
         <a href="work.html" class="btn reveal">View Work <span class="btn-arrow">→</span></a>
       </div>
-      <!-- Right: cinematic portrait -->
-      <div class="hero-portrait" id="hero-portrait" aria-hidden="true">
-        <!-- Light mode: transparent PNG blends with any bg -->
-        <img src="images/yemi-smile.png" alt="" class="hero-portrait-img hero-portrait-light">
-        <!-- Dark mode: JPG with multiply blend — JS cursor spotlight reveals it -->
-        <img src="images/yemi-smile.jpg" alt="" class="hero-portrait-img hero-portrait-dark">
-        <!-- Dark mode cursor spotlight dimmer -->
-        <div class="hero-portrait-dimmer" id="hero-portrait-dimmer"></div>
-      </div>
-
     </div>
   </section>
+
 
 
   <!-- CURRENT FOCUS -->

@@ -419,40 +419,47 @@ section:first-of-type{ border-top:none; }
   }
 }
 
-/* ---------- Hero (home) ---------- */
-.hero{ padding:0; }
-
-/* Two-column grid: text left, portrait right */
-.hero-wrap{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  align-items:center;
-  min-height:100vh;
-  gap:0;
-}
-
-.hero-text{
-  padding:140px var(--margin) 120px 0;
-}
-
-/* ── Cinematic portrait column ── */
-.hero-portrait{
+/* ---------- Hero (home) — cinematic spotlight ---------- */
+.hero{
   position:relative;
-  height:100vh;
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
   overflow:hidden;
+  border-top:none;
+  background:#FFFFFF; /* White canvas so mix-blend-mode:multiply makes white photo bg invisible */
+  padding:0;
+}
+
+[data-theme="light"] .hero{
+  background:#FFFFFF;
+}
+
+/* Portrait container positioned on the right half */
+.hero-portrait-bg{
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  width:54%;
+  height:100%;
+  z-index:1;
+  overflow:hidden;
+  pointer-events:none;
 }
 
 .hero-portrait-img{
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center 10%;
+  object-position:center 12%;
+  /* multiply blend kills the white studio background completely */
+  mix-blend-mode:multiply;
   /* Mirror so figure faces toward the text */
   transform:scaleX(-1);
   display:block;
   opacity:0;
-  position:relative;
-  z-index:1; /* ensures dimmer (z-index:2) always sits above */
   animation: hero-portrait-in 1.4s cubic-bezier(.22,1,.36,1) .3s forwards;
 }
 
@@ -461,90 +468,83 @@ section:first-of-type{ border-top:none; }
   100%{ opacity:1; transform:scaleX(-1) scale(1); }
 }
 
-/* Left-edge gradient fade — above the dimmer */
-.hero-portrait::before{
-  content:'';
+/* Full-hero dimmer: dark by default, cursor cuts radial spotlight */
+.hero-dimmer{
   position:absolute;
   inset:0;
-  background: linear-gradient(to right,
-    var(--bg) 0%,
-    transparent 16%
+  pointer-events:none;
+  z-index:2;
+  background:rgba(10,10,10,0.96);
+}
+
+[data-theme="light"] .hero-dimmer{
+  background:rgba(245,243,240,0.92);
+}
+
+/* Bottom fade into page background */
+.hero-bottom-fade{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:140px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(10,10,10,0.5) 40%,
+    var(--bg) 100%
   );
   pointer-events:none;
   z-index:3;
 }
 
-/* ── Light mode: transparent PNG only ─────────────── */
-.hero-portrait-light { display:block; }
-.hero-portrait-dark  { display:none; }
-.hero-portrait-dimmer{ display:none; }
-
-/* ── Dark mode: JPG + multiply + spotlight dimmer ─── */
-/* Matches both explicit data-theme and system preference */
-[data-theme="dark"] .hero-portrait,
-@media (prefers-color-scheme: dark) { .hero-portrait:not([data-theme="light"] *) }
-[data-theme="dark"] .hero-portrait{
-  background:#FFFFFF; /* multiply needs white bg to erase studio white */
-}
-[data-theme="dark"] .hero-portrait-light{ display:none; }
-[data-theme="dark"] .hero-portrait-dark{
-  display:block;
-  mix-blend-mode:multiply;
-}
-[data-theme="dark"] .hero-portrait-dimmer{
-  display:block;
-  position:absolute;
-  inset:0;
-  background:rgba(10,10,10,0.92);
-  pointer-events:none;
-  z-index:2;
+[data-theme="light"] .hero-bottom-fade{
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(245,243,240,0.5) 40%,
+    var(--bg) 100%
+  );
 }
 
-/* System dark preference (when data-theme not yet set) */
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]) .hero-portrait{ background:#FFFFFF; }
-  :root:not([data-theme="light"]) .hero-portrait-light{ display:none; }
-  :root:not([data-theme="light"]) .hero-portrait-dark{ display:block; mix-blend-mode:multiply; }
-  :root:not([data-theme="light"]) .hero-portrait-dimmer{
-    display:block;
-    position:absolute;
-    inset:0;
-    background:rgba(10,10,10,0.92);
-    pointer-events:none;
-    z-index:2;
-  }
+/* Text Content: sits on top */
+.hero-wrap{
+  position:relative;
+  z-index:4;
+  width:100%;
+  padding-top:140px;
+  padding-bottom:120px;
 }
 
+.hero-text{
+  max-width:580px;
+}
 
 .hero .eyebrow{
   font-size:14px; letter-spacing:0.08em; text-transform:uppercase;
   color:var(--text-secondary); margin-bottom:28px; font-weight:500;
 }
-.hero h1{ font-size:56px; max-width:560px; margin-bottom:44px; }
+.hero h1{ font-size:56px; max-width:580px; margin-bottom:44px; }
 .hero h1 em{ font-style:italic; color:var(--text-secondary); }
 .hero-intro{
   font-size:20px; color:var(--text-secondary); max-width:480px; margin-bottom:40px;
   font-family:'Newsreader', serif; font-style:italic; line-height:1.55;
 }
 
-/* Mobile: single column, portrait hidden */
+/* Mobile: portrait hidden, single column */
 @media (max-width: 640px){
-  .hero-wrap{
-    grid-template-columns:1fr;
-    min-height:auto;
-  }
-  .hero-text{
-    padding:100px var(--margin) 72px;
-  }
-  .hero-portrait{ display:none; }
+  .hero{ min-height:auto; }
+  .hero-portrait-bg{ display:none; }
+  .hero-dimmer{ display:none; }
+  .hero-bottom-fade{ display:none; }
+  .hero-wrap{ padding-top:100px; padding-bottom:72px; }
   .hero h1{ font-size:36px; }
 }
 
-/* Tablet: portrait slightly smaller */
+/* Tablet: portrait slightly narrower */
 @media (max-width:1024px) and (min-width:641px){
-  .hero-wrap{ grid-template-columns:1fr 0.85fr; }
+  .hero-portrait-bg{ width:48%; }
   .hero h1{ font-size:44px; }
 }
+
 
 
 

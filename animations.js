@@ -495,39 +495,54 @@
 
 
   /* -------------------------------------------------------
-     HOME HERO PORTRAIT SPOTLIGHT (dark mode only)
-     Listeners always registered — isDark() checked live
-     so theme toggle after page load works correctly.
+     HOME HERO SPOTLIGHT
+     Follows cursor across the entire #home-hero, revealing
+     the portrait by cutting a hole through #hero-dimmer.
   ------------------------------------------------------- */
-  function initHomePortraitLight() {
-    const col    = document.getElementById('hero-portrait');
-    const dimmer = document.getElementById('hero-portrait-dimmer');
-    if (!col || !dimmer) return;
+  function initHomeHeroLight() {
+    const hero   = document.getElementById('home-hero');
+    const dimmer = document.getElementById('hero-dimmer');
+    if (!hero || !dimmer) return;
     if (window.matchMedia('(hover: none)').matches) return;
 
-    function isDark() {
-      const t = document.documentElement.getAttribute('data-theme');
-      return t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (prefersReducedMotion) {
+      dimmer.style.background = 'rgba(10,10,10,0.55)';
+      return;
     }
 
-    const R = 280;
+    const R = 440; // 440px spotlight radius (same as About page)
     let tx = -9999, ty = -9999;
     let cx = -9999, cy = -9999;
     let active = false;
     let raf = null;
 
-    function spotGradient(x, y) {
-      return `radial-gradient(circle ${R}px at ${x}px ${y}px,
-        rgba(10,10,10,0.00) 0%,
-        rgba(10,10,10,0.30) 30%,
-        rgba(10,10,10,0.68) 58%,
-        rgba(10,10,10,0.92) 85%
-      )`;
+    function isDarkMode() {
+      const theme = document.documentElement.getAttribute('data-theme');
+      if (theme === 'dark') return true;
+      if (theme === 'light') return false;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
-    function stopLoop() {
-      active = false;
-      cancelAnimationFrame(raf);
+    function spotGradient(x, y) {
+      if (isDarkMode()) {
+        return `radial-gradient(circle ${R}px at ${x}px ${y}px,
+          rgba(10,10,10,0.00) 0%,
+          rgba(10,10,10,0.30) 30%,
+          rgba(10,10,10,0.68) 58%,
+          rgba(10,10,10,0.96) 85%
+        )`;
+      } else {
+        return `radial-gradient(circle ${R}px at ${x}px ${y}px,
+          rgba(245,243,240,0.00) 0%,
+          rgba(245,243,240,0.28) 30%,
+          rgba(245,243,240,0.68) 58%,
+          rgba(245,243,240,0.96) 85%
+        )`;
+      }
+    }
+
+    function fullDim() {
+      return isDarkMode() ? 'rgba(10,10,10,0.96)' : 'rgba(245,243,240,0.92)';
     }
 
     function loop() {
@@ -538,13 +553,8 @@
       raf = requestAnimationFrame(loop);
     }
 
-    col.addEventListener('mousemove', (e) => {
-      if (!isDark() || prefersReducedMotion) {
-        // Light mode — stop any running spotlight
-        stopLoop();
-        return;
-      }
-      const rect = col.getBoundingClientRect();
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
       tx = e.clientX - rect.left;
       ty = e.clientY - rect.top;
       if (!active) {
@@ -555,11 +565,11 @@
       }
     });
 
-    col.addEventListener('mouseleave', () => {
-      if (!isDark()) return;
-      stopLoop();
+    hero.addEventListener('mouseleave', () => {
+      active = false;
+      cancelAnimationFrame(raf);
       dimmer.style.transition = 'background 0.55s ease';
-      dimmer.style.background = 'rgba(10,10,10,0.92)';
+      dimmer.style.background = fullDim();
       setTimeout(() => { dimmer.style.transition = ''; }, 600);
     });
   }
@@ -567,7 +577,7 @@
   function boot() {
     initThemeToggle();
     initAboutTouchLight();
-    initHomePortraitLight();
+    initHomeHeroLight();
     initCurrentlyCycler();
     initPageTransitions();
     initHeroTextReveal();
