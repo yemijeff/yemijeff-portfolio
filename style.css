@@ -471,15 +471,32 @@ section:first-of-type{ border-top:none; }
   pointer-events:none;
 }
 
-/* Fade left edge of portrait into page bg for a seamless blend */
+/* Fade all edges of portrait into the page bg — no hard boundaries */
 .hero-portrait::before{
   content:'';
   position:absolute;
   inset:0;
-  background: linear-gradient(to right,
-    var(--bg) 0%,
-    rgba(0,0,0,0) 18%
-  );
+  background:
+    /* Left edge — blends into the text column */
+    linear-gradient(to right,
+      var(--bg) 0%,
+      transparent 22%
+    ),
+    /* Right edge — removes hard right boundary */
+    linear-gradient(to left,
+      var(--bg) 0%,
+      transparent 22%
+    ),
+    /* Top edge — melts into nav area */
+    linear-gradient(to bottom,
+      var(--bg) 0%,
+      transparent 20%
+    ),
+    /* Bottom edge — soft fade out */
+    linear-gradient(to top,
+      var(--bg) 0%,
+      transparent 18%
+    );
   pointer-events:none;
   z-index:1;
 }
