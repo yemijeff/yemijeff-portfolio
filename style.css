@@ -447,8 +447,6 @@ section:first-of-type{ border-top:none; }
   height:100%;
   object-fit:cover;
   object-position:center 10%;
-  /* multiply removes the white studio bg, preserves all face/skin tones */
-  mix-blend-mode:multiply;
   /* Mirror so figure faces toward the text */
   transform:scaleX(-1);
   display:block;
@@ -461,45 +459,19 @@ section:first-of-type{ border-top:none; }
   100%{ opacity:1; transform:scaleX(-1) scale(1); }
 }
 
-/* Light mode: page bg is already light so multiply works perfectly */
-/* Dark mode: add a slight dark overlay on the portrait column */
-[data-theme="dark"] .hero-portrait::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:rgba(10,10,10,0.45);
-  pointer-events:none;
-}
-
-/* Fade all edges of portrait into the page bg — no hard boundaries */
+/* Subtle left-edge fade so figure flows into text column */
 .hero-portrait::before{
   content:'';
   position:absolute;
   inset:0;
-  background:
-    /* Left edge — blends into the text column */
-    linear-gradient(to right,
-      var(--bg) 0%,
-      transparent 22%
-    ),
-    /* Right edge — removes hard right boundary */
-    linear-gradient(to left,
-      var(--bg) 0%,
-      transparent 22%
-    ),
-    /* Top edge — melts into nav area */
-    linear-gradient(to bottom,
-      var(--bg) 0%,
-      transparent 20%
-    ),
-    /* Bottom edge — soft fade out */
-    linear-gradient(to top,
-      var(--bg) 0%,
-      transparent 18%
-    );
+  background: linear-gradient(to right,
+    var(--bg) 0%,
+    transparent 16%
+  );
   pointer-events:none;
   z-index:1;
 }
+
 
 .hero .eyebrow{
   font-size:14px; letter-spacing:0.08em; text-transform:uppercase;
