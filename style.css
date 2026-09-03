@@ -478,8 +478,9 @@ section:first-of-type{ border-top:none; }
 }
 
 [data-theme="light"] .hero-dimmer{
-  background:rgba(245,243,240,0.92);
+  background: transparent;
 }
+
 
 /* Bottom fade into page background */
 .hero-bottom-fade{

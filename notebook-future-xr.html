@@ -4,8 +4,8 @@
 <script>
   // Prevent flash of wrong theme before CSS loads
   (function(){
-    var t = localStorage.getItem("yjs-theme");
-    if(t) document.documentElement.setAttribute("data-theme", t);
+    var t = localStorage.getItem("yjs-theme") || "light";
+    document.documentElement.setAttribute("data-theme", t);
   })();
 </script>
 <meta charset="UTF-8">
