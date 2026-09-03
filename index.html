@@ -38,18 +38,22 @@
 
   <!-- HERO -->
   <section class="hero" id="home-hero" style="border-top:none;">
-    <!-- Portrait background on the right side -->
-    <div class="hero-portrait-bg" id="hero-portrait-bg" aria-hidden="true">
-      <img src="images/yemi-smile.jpg" alt="Yemi Jeff Senbanjo" class="hero-portrait-img">
+    <!-- Light mode: transparent PNG, no blend needed -->
+    <div class="hero-portrait-bg hero-portrait-light" aria-hidden="true">
+      <img src="images/yemi-smile.png" alt="" class="hero-portrait-img hero-portrait-img-light">
+    </div>
+    <!-- Dark mode: JPG with multiply blend + spotlight dimmer -->
+    <div class="hero-portrait-bg hero-portrait-dark" aria-hidden="true">
+      <img src="images/yemi-smile.jpg" alt="" class="hero-portrait-img hero-portrait-img-dark">
     </div>
 
-    <!-- Full-hero spotlight dimmer (covers entire hero screen) -->
+    <!-- Full-hero spotlight dimmer (dark mode only — JS drives the radial gradient) -->
     <div class="hero-dimmer" id="hero-dimmer"></div>
 
     <!-- Bottom fade into page background -->
     <div class="hero-bottom-fade"></div>
 
-    <!-- Hero Content (Text on the left) -->
+    <!-- Hero Content -->
     <div class="wrap hero-wrap">
       <div class="hero-text">
         <p class="eyebrow reveal">Product Designer — Lagos &amp; Remote</p>
@@ -59,6 +63,7 @@
       </div>
     </div>
   </section>
+
 
 
 

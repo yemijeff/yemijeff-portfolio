@@ -419,7 +419,7 @@ section:first-of-type{ border-top:none; }
   }
 }
 
-/* ---------- Hero (home) — cinematic spotlight ---------- */
+/* ---------- Hero (home) — light: portrait right, dark: full-screen spotlight ---------- */
 .hero{
   position:relative;
   width:100%;
@@ -428,15 +428,16 @@ section:first-of-type{ border-top:none; }
   align-items:center;
   overflow:hidden;
   border-top:none;
-  background:#FFFFFF; /* White canvas so mix-blend-mode:multiply makes white photo bg invisible */
+  background: var(--bg); /* uses theme background by default */
   padding:0;
 }
 
-[data-theme="light"] .hero{
+/* Dark mode: hero needs white canvas so multiply blend hides studio background */
+[data-theme="dark"] .hero{
   background:#FFFFFF;
 }
 
-/* Portrait container positioned on the right half */
+/* ── Portrait container: right half, absolutely positioned ── */
 .hero-portrait-bg{
   position:absolute;
   top:0;
@@ -449,18 +450,28 @@ section:first-of-type{ border-top:none; }
   pointer-events:none;
 }
 
+/* ── Light mode portrait (transparent PNG) ── */
+.hero-portrait-light{ display:block; }  /* shown by default */
+.hero-portrait-dark { display:none; }   /* hidden by default */
+
+[data-theme="dark"] .hero-portrait-light{ display:none; }
+[data-theme="dark"] .hero-portrait-dark { display:block; }
+
+/* ── Portrait image: shared styles ── */
 .hero-portrait-img{
   width:100%;
   height:100%;
   object-fit:cover;
   object-position:center 12%;
-  /* multiply blend kills the white studio background completely */
-  mix-blend-mode:multiply;
-  /* Mirror so figure faces toward the text */
-  transform:scaleX(-1);
+  transform:scaleX(-1); /* mirror to face toward text */
   display:block;
   opacity:0;
   animation: hero-portrait-in 1.4s cubic-bezier(.22,1,.36,1) .3s forwards;
+}
+
+/* Dark mode JPG needs multiply to kill white studio background */
+.hero-portrait-img-dark{
+  mix-blend-mode:multiply;
 }
 
 @keyframes hero-portrait-in{
@@ -468,21 +479,21 @@ section:first-of-type{ border-top:none; }
   100%{ opacity:1; transform:scaleX(-1) scale(1); }
 }
 
-/* Full-hero dimmer: dark by default, cursor cuts radial spotlight */
+/* ── Dimmer: only active in dark mode ── */
 .hero-dimmer{
   position:absolute;
   inset:0;
   pointer-events:none;
   z-index:2;
-  background:rgba(10,10,10,0.96);
+  background:rgba(10,10,10,0.96); /* default dark; JS overrides with radial gradient */
 }
 
+/* Light mode: dimmer is completely off */
 [data-theme="light"] .hero-dimmer{
-  background: transparent;
+  display:none;
 }
 
-
-/* Bottom fade into page background */
+/* ── Bottom fade ── */
 .hero-bottom-fade{
   position:absolute;
   bottom:0;
@@ -501,12 +512,12 @@ section:first-of-type{ border-top:none; }
 [data-theme="light"] .hero-bottom-fade{
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(245,243,240,0.5) 40%,
+    transparent 60%,
     var(--bg) 100%
   );
 }
 
-/* Text Content: sits on top */
+/* ── Text Content: sits above everything ── */
 .hero-wrap{
   position:relative;
   z-index:4;
@@ -517,6 +528,17 @@ section:first-of-type{ border-top:none; }
 
 .hero-text{
   max-width:580px;
+}
+
+/* Dark mode: text needs to be white (hero bg is #FFF but dimmer covers it) */
+[data-theme="dark"] .hero .eyebrow,
+[data-theme="dark"] .hero h1,
+[data-theme="dark"] .hero h1 em,
+[data-theme="dark"] .hero-intro{
+  color:#FFFFFF;
+}
+[data-theme="dark"] .hero h1 em{
+  color:rgba(255,255,255,0.6);
 }
 
 .hero .eyebrow{
@@ -530,21 +552,22 @@ section:first-of-type{ border-top:none; }
   font-family:'Newsreader', serif; font-style:italic; line-height:1.55;
 }
 
-/* Mobile: portrait hidden, single column */
+/* ── Mobile: portrait hidden ── */
 @media (max-width: 640px){
   .hero{ min-height:auto; }
-  .hero-portrait-bg{ display:none; }
-  .hero-dimmer{ display:none; }
+  .hero-portrait-bg{ display:none !important; }
+  .hero-dimmer{ display:none !important; }
   .hero-bottom-fade{ display:none; }
   .hero-wrap{ padding-top:100px; padding-bottom:72px; }
   .hero h1{ font-size:36px; }
 }
 
-/* Tablet: portrait slightly narrower */
+/* ── Tablet ── */
 @media (max-width:1024px) and (min-width:641px){
   .hero-portrait-bg{ width:48%; }
   .hero h1{ font-size:44px; }
 }
+
 
 
 
