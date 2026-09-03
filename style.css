@@ -790,7 +790,7 @@ article.case-body li{ margin-bottom:10px; }
 
 /* Real Product Screenshot Showcase */
 .case-shot-container{ width:100%; margin:48px 0; }
-.case-shot-container.wide{ width:100vw; position:relative; left:50%; transform:translateX(-50%); }
+.case-shot-container.wide{ width:100%; }
 
 .case-shot-img{ width:100%; height:auto; display:block; border-radius:8px; border:1px solid var(--border); box-shadow:0 4px 20px rgba(0,0,0,0.05); transition:transform .4s ease, box-shadow .4s ease; }
 .case-shot-img:hover{ transform:scale(1.008); box-shadow:0 8px 30px rgba(0,0,0,0.09); }
